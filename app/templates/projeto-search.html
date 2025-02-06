@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Procurar Projetos</h1>
+<p><b>Procurar expressão:</b>"{{ search.expr }}"</p>
+<p>
+<ul>
+  {% for projeto in projetos %}
+  <li><a href="/projetos/{{ projeto.codigoProjetoP }}">{{ projeto.nomeProjetoP }}</a></li>
+  {% endfor %}
+</ul>
+</p>
+{% endblock %}

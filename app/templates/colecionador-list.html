@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Colecionadores</h1>
+<table>
+  <tr>
+    <th>
+      <b>BI</b>
+    </th>
+    <th>
+      <b>Nome</b>
+    </th>
+    <th>
+        <b>Data de Nascimento</b>
+    </th>
+    <th>
+        <b>Data do Início da Coleção</b>
+    </th>
+  </tr>
+  {% for colecionador in colecionadores %}
+  <tr>
+    <td>
+      <a href="/colecionadores/{{ colecionador.bi }}">{{colecionador.bi }}</a>
+    </td>
+    <td>
+      {{ colecionador.nome }}
+    </td>
+    <td>
+      {{ colecionador.dataNascimento }}
+    </td>
+    <td>
+        {{ colecionador.dataInicioColecao }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

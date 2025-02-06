@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Músicas</h1>
+<table>
+  <tr>
+    <th>
+      <b>Código</b>
+    </th>
+    <th>
+      <b>Nome</b>
+    </th>
+    <th>
+      <b>Intérprete</b>
+    </th> 
+  </tr>
+  {% for musica in musicas %}
+  <tr>
+    <td>
+      <a href="/musicas/{{ musica.codigoMusicaM }}">{{ musica.codigoMusicaM }}</a>
+    </td>
+    <td>
+      {{ musica.nomeM }}
+    </td>
+    <td>
+      <a href="/interpretes/{{ musica.codigoInterpreteI }}">{{ musica.nomeI }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

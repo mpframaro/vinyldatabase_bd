@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ projeto.nomeP }}</h1>
+<p>
+  <b>Código: </b>{{ projeto.codigoProjetoP }}
+</p>
+<p>
+  <b>Intérprete: </b><a href="/interpretes/{{ projeto.codigoInterpreteI }}">{{ projeto.nomeI }}</a>
+</p>
+<p>
+  <b>Data de Lançamento: </b>{{ projeto.dataLancamentoP }}
+</p>
+<p>
+  <b>Géneros: </b>{{ projeto.generosP }}
+</p>
+<p>
+  <b>Tipo: </b>{{ projeto.tipoP }}
+</p>
+<p>
+    <b>Formatos: </b>{{ projeto.formatosP }}
+</p>
+<p>
+    <b>Review da Pitchfork: </b>{{ projeto.reviewPitchforkP }}
+</p>
+
+<p>
+  <b>Músicas: </b>
+<ul>
+  {% for musica in musicas %}
+  <li>
+    <a href="/musicas/{{ musica.codigoMusica }}">{{ musica.nome }}</a>
+  </li>
+  {% endfor %}
+</ul>
+</p>
+{% endblock %}

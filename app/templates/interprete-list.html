@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Intérpretes</h1>
+<table>
+  <tr>
+    <th>
+      <b>Código</b>
+    </th>
+    <th>
+      <b>Nome</b>
+    </th>
+    <th>
+        <b>Origem</b>
+    </th>
+    <th>
+        <b>Grammys</b>
+    </th>
+  </tr>
+  {% for interprete in interpretes %}
+  <tr>
+    <td>
+      <a href="/interpretes/{{ interprete.codigoInterpreteI }}">{{ interprete.codigoInterpreteI }}</a>
+    </td>
+    <td>
+      {{ interprete.nomeI }}
+    </td>
+    <td>
+      {{ interprete.origemI }}
+    </td>
+    <td>
+        {{ interprete.grammysI }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

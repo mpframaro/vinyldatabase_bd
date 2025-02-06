@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{musica.nomeM}}</h1>
+<p>
+  <b>Código da Música: </b>{{ musica.codigoMusicaM }}
+</p>
+<p>
+  <b> Intérprete: </b><a href="/interpretes/{{ musica.codigoInterpreteI }}">{{ musica.nomeI }}</a>
+</p>
+<p>
+ <b> Géneros: </b>{{ musica.generosP }}
+</p>
+<p>
+  <b> Pertence ao projeto: </b> <a href="/projetos/{{ musica.codigoProjetoM }}">{{ musica.nomeP }} </a>
+</p>
+{% endblock %}

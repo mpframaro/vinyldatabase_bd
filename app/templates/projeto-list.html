@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Projetos</h1>
+<table>
+  <tr>
+    <th>
+        <b>Código</b>
+    </th>
+    <th>
+        <b>Nome</b>
+    </th>
+    <th>
+        <b>Data de Lançamento</b>
+    </th>
+    <th>
+        <b>Géneros</b>
+    </th>
+    <th>
+        <b>Tipo</b>
+    </th>
+    <th>
+        <b>Formatos</b>
+    </th>
+    <th>
+        <b>Review do Pitchfork</b>
+    </th>
+    <th>
+        <b>Intérprete</b>
+    </th>
+  </tr>
+
+  {% for projeto in projetos %}
+  <tr>
+    <td>
+      <a href="/projetos/{{ projeto.codigoProjetoP }}">{{projeto.codigoProjetoP }}</a>
+    </td>
+    <td>
+      {{ projeto.nomeP }}
+    </td>
+    <td>
+      {{ projeto.dataLancamentoP }}
+    </td>
+    <td>
+      {{ projeto.generosP }}
+    </td>
+    <td>
+      {{ projeto.tipoP }}
+    </td>
+    <td>
+     {{ projeto.formatosP }}
+    </td>
+    <td>
+     {{ projeto.reviewPitchforkP }}
+    </td>
+    <td>
+      <a href="/interpretes/{{ projeto.codigoInterpreteI }}">{{ projeto.nomeI }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

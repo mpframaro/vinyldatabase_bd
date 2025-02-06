@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Coleção de Discos!</h1>
+
+<h2>Sobre</h2>
+<p>Esta aplicação web ilustra o uso da base de dados criada por
+Miguel Amaro (up202106985), inspirada pela aplicação da MovieStream database. 
+</p>
+
+<h2>Entradas das Tabelas</h2>
+<table>
+<tr>
+  <th>Items</th>
+  <th>Contagem</th>
+</tr>
+<tr>
+  <td>Colecionadores</td>
+  <td>{{ stats.n_colecionadores }}</td>
+</tr>
+<tr>
+  <td>Interpretes</td>
+  <td>{{ stats.n_interpretes }}</td>
+</tr>
+<tr>
+  <td>Projetos</td>
+  <td>{{ stats.n_projetos }}</td>
+</tr>
+<tr>
+  <td>Possui</td>
+  <td>{{ stats.n_possui }}</td>
+</tr>
+<tr>
+  <td>Musicas</td>
+  <td>{{ stats.n_musicas }}</td>
+</tr>
+<tr>
+  <td>Fez</td>
+  <td>{{ stats.n_fez }}</td>
+</tr>
+</table>
+
+
+<h2>Informações e Funcionalidades</h2>
+
+
+<h3>Colecionadores</h3>
+<p>
+   <a href="/colecionadores">Listar tudo</a>
+</p>
+
+<p>Obter Informação do Colecionador:
+<form name="cid" action="javascript:window.open('/colecionadores/'+document.forms['cid'].elements['id'].value,'_self')">
+   BI do Colecionador:<input value="449010920" name="id" type="string" /><input type="submit" value="get"/>
+</form>
+</p>
+
+<p>Procurar por Nome:
+  <form name="csearch" action="javascript:window.open('/colecionadores/search/'+document.forms['csearch'].elements['expr'].value,'_self')">
+    <input name="expr" id="expr" value="Miguel" required/>
+    <input type="submit" value="search"/>
+  </form>
+</p>
+
+
+
+
+<h3>Intérpretes</h3>
+<p>
+   <a href="/interpretes">Listar tudo</a>
+</p>
+
+<p>Obter Informação do Intérprete:
+<form name="gid" action="javascript:window.open('/interpretes/'+document.forms['gid'].elements['id'].value,'_self')">
+   Código do Intérprete:<input value="BHS1978" name="id" type="string" /><input type="submit" value="get"/>
+</form>
+</p>
+
+<p>Procurar por Nome:
+  <form name="isearch" action="javascript:window.open('/interpretes/search/'+document.forms['isearch'].elements['expr'].value,'_self')">
+    <input name="expr" id="expr" value="Aphex" required/>
+    <input type="submit" value="search"/>
+  </form>
+</p>
+
+
+
+
+
+<h3>Projetos</h3>
+<p>
+   <a href="/projetos">Listar tudo</a>
+</p>
+
+<p>Obter Informação do Projeto:
+<form name="mid" action="javascript:window.open('/projetos/'+document.forms['mid'].elements['id'].value,'_self')">
+   Código do Projeto:<input value="MLSDVSBTCHSBRW" name="id" type="string"/><input type="submit" value="get"/>
+</form>
+</p>
+  
+<p>Procurar por Nome:
+<form name="msearch" action="javascript:window.open('/projetos/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
+  <input name="expr" id="expr" value="Brew" required/>
+  <input type="submit" value="search"/>
+</form>
+</p>
+
+
+
+
+<h3>Músicas</h3>
+<p>
+   <a href="/musicas">Listar tudo</a>
+</p>
+
+<p>Obter Informação da Música:
+<form name="aid" action="javascript:window.open('/musicas/'+document.forms['aid'].elements['id'].value,'_self')">
+   Código da Música:<input value="BLDVRSNC002" name="id" type="string" /><input type="submit" value="get"/>
+</form>
+</p>
+
+<p>Procurar por Nome:
+  <form name="asearch" action="javascript:window.open('/musicas/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
+    <input name="expr" id="expr" value="Lugosi" required/>
+    <input type="submit" value="search"/>
+  </form>
+</p>
+
+{% endblock %}

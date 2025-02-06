@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ interprete.nomeI }}</h1>
+<p>
+  <b>Código: </b>{{ interprete.codigoInterpreteI }}
+</p>
+<p>
+  <b>Origem: </b>{{ interprete.origemI }}
+</p>
+<p>
+  <b>Grammys: </b>{{ interprete.grammysI }}
+</p>
+
+<p>
+  <b>Projetos: </b>
+<ul>
+  {% for projeto in projetos %}
+  <li>
+    <a href="/projetos/{{ projeto.codigoProjeto }}">{{ projeto.nome }}</a>
+  </li>
+  {% endfor %}
+</ul>
+</p>
+{% endblock %}

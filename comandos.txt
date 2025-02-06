@@ -1,0 +1,781 @@
+sqlite3
+
+
+
+.open BaseDados.db
+
+
+
+
+
+---///---
+CRIACAO TABELAS
+---///---
+
+
+
+
+
+---///---COLECIONADORES---///---
+create table Colecionadores
+            (bi int primary key,
+             nome varchar(50) not null,
+             dataNascimento date not null,
+             dataInicioColecao date);
+
+
+
+---///---INTERPRETES---///---
+create table Interpretes
+            (codigoInterprete varchar(100) primary key,
+             nome varchar(50) not null,
+             origem varchar(50) not null,
+             grammys int not null);
+
+
+
+---///---PROJETOS---///---
+create table Projetos
+            (codigoProjeto varchar(100) primary key,
+             nome varchar(100) not null,
+             dataLancamento date not null,
+             generos varchar(100) not null,
+             tipo varchar(100) not null,
+             formatos varchar(100) not null,
+             reviewPitcfork int,
+             codigoInterprete int references Interpretes(codigoInterprete));
+
+
+
+---///---MUSICAS---///---
+create table Musicas
+            (codigoMusica varchar(100) primary key,
+             nome varchar(100) not null,
+             codigoProjeto int references Projetos(codigoProjeto));
+
+
+
+---///---POSSUI---///---
+create table Possui
+            (bi int references Colecionadores(bi),
+             codigoProjeto varchar(100) references Projetos(codigoProjeto),
+             dataCompra date,
+             primary key (bi, codigoProjeto));
+
+
+
+---///---FEZ---///---
+create table Fez
+            (codigoMusica varchar(100) primary key references Musica(codigoMusica),
+             codigoInterprete varchar(100) references Interprete(codigoInterprete));
+
+
+
+
+
+---///---
+INSERCAO DADOS
+---///---
+
+
+
+
+
+---///---COLECIONADORES---///---
+insert into Colecionadores values(449010920, "Miguel Amaro", "2003-05-11", "2023-11-01");
+insert into Colecionadores values(449069520, "Jose Joao", "2003-08-20", "2023-01-01");
+insert into Colecionadores values(443099920, "Afonso Souto", "2003-10-12", "2022-05-20");
+
+
+
+---///---INTERPRETES---///---
+insert into Interpretes values("JHNCLTRN1926", "John Coltrane", "North Carolina, EUA", 1);
+insert into Interpretes values("BLD1994", "Bladee", "Estocolmo, Suécia", 0);
+insert into Interpretes values("THCR1976", "The Cure", "West Sussex, Inglaterra", 0);
+insert into Interpretes values("MLSDVS1926", "Miles Davis", "Illinois, EUA", 8);
+insert into Interpretes values("BHS1978", "Bauhaus", "Northampton, Inglaterra", 0);
+insert into Interpretes values("APHXTWN1971", "Aphex Twin", "Limerick, Irlanda", 1);
+insert into Interpretes values("THCLT1983", "The Cult", "Bradford, Inglaterra", 0);
+insert into Interpretes values("THNDRCT1984", "Thundercat", "California, EUA", 2);
+insert into Interpretes values("YS1968", "Yes", "Londres, Inglaterra", 1);
+insert into Interpretes values("TLRTHCRTR1991", "Tyler, The Creator", "California, EUA", 2);
+insert into Interpretes values("LRNHLL1975", "Lauryn Hill", "New Jersey, EUA", 8);
+insert into Interpretes values("FLTNGPNTS2008", "Floating Points", "Manchester, Inglaterra", 1);
+insert into Interpretes values("ARTHRVRC1945", "Arthur Verocai", "Rio de Janeiro, Brasil", 0);
+insert into Interpretes values("KNWST1977", "Kanye West", "Georgia, EUA", 24);
+insert into Interpretes values("YNGLN1996", "Yung Lean", "Minsk, Bielorussia", 0);
+insert into Interpretes values("CHFKF1995", "Chief Keef", "Illinois, EUA", 0);
+insert into Interpretes values("PLBCRT1996", "Playboi Carti", "Georgia, EUA", 0);
+insert into Interpretes values("MDLB1972", "Madlib", "California, EUA", 0);
+insert into Interpretes values("FTR1983", "Future", "Georgia, EUA", 2);
+insert into Interpretes values("ANTNPNHVRGS1951", "Antonio Pinho Vargas", "Vila Nova de Gaia, Portugal", 0);
+
+
+
+---///---PROJETOS---///--
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("JHNCLTRNMFVRTTHNGS", "My Favourite Things", "1961-03-01", "Jazz, Jazz modal, Free jazz", "Album", "CD, Vinil, Cassete", "JHNCLTRN1926");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("BLDVRSNC", "Eversince", "2016-05-25", "Hip-hop alternativo", "Album", "Vinil", "BLD1994");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("THCRPRNHGRPH", "Pornography", "1982-05-04", "Post-punk, Rock gotico, Dark wave", "Album", "CD, Vinil", "THCR1976");
+insert into Projetos values("MLSDVSBTCHSBRW", "Bitches Brew", "1970-03-30", "Avant-gard jazz, Psychadelic", "Album", "CD, Vinil, Cassete", 95, "MLSDVS1926");
+insert into Projetos values("BHSTHBLSSSN", "The Bela Session", "2018-11-23", "Post-punk, Rock gotico, Dub", "EP", "Vinil", 79, "BHS1978");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("BHSNTHFLTFLD", "In The Flat Field", "1980-10-03", "Post-punk, Rock gotico", "Album", "CD, Vinil, Cassete", "BHS1978");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("APHTWNCRBCD", "...I Care Because You Do", "1995-04-24", "IDM, Eletronica", "Album", "CD, Vinil", "APHXTWN1971");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("THCLTCRMN", "Ceremony", "1991-09-11", "Rock, Hard rock", "Album", "CD, Vinil, Cassete", "THCLT1983");
+insert into Projetos values("THNDRCTTHEGLDNGFPCLPS", "The Golden Age of Apocalypse", "2011-08-29", "Jazz fusion", "Album", "CD, Vinil", 81, "THNDRCT1984");
+insert into Projetos values("YSCLSTTHDG", "Close To The Edge", "1972-09-13", "Rock progressivo", "Album", "CD, Vinil, Cassete", 90, "YS1968");
+insert into Projetos values("TLRTHCRTRGR", "Igor", "2019-05-17", "Hip-hop, Neo soul, Funk", "Album", "CD, Vinil, Cassete", 80, "TLRTHCRTR1991");
+insert into Projetos values("TLRTHCRTRWLF", "Wolf", "2013-04-02", "Hip-hop alternativo, Pop rap", "Album", "CD, Vinil", 78, "TLRTHCRTR1991");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("MLSDVSKNDFBL", "Kind Of Blue", "1959-08-17", "Jazz modal, Post-bop", "Album", "CD, Vinil, Cassete", "MLSDVS1926");
+insert into Projetos values("LRNHLLTHMSDCTNFLRNHLL", "The Miseducation Of Lauryn Hill", "1998-08-25", "Hip-hop, Soul, Gospel", "Album", "CD, Vinil, Cassete", 95, "LRNHLL1975");
+insert into Projetos values("FLTNGPNTSPRMSS", "Promises", "2021-03-26", "Minimalista", "Album", "CD, Vinil", 90, "FLTNGPNTS2008");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("ARTHRVRCARTHRVRC", "Arthur Verocai", "1972-06-06", "Funk, MPB, Jazz latino, Folk jazz", "Album", "CD, Vinil, Cassete", "ARTHRVRC1945");
+insert into Projetos values("KNWSTTHCLLGDRPT", "The College Dropout", "2004-02-10", "Hip-hop, Pop", "Album", "CD, Vinil, Cassete", 82, "KNWST1977");
+insert into Projetos values("KNWSTMBDTF", "My Beautiful Dark Twisted Fantasy", "2010-11-22", "Hip-hop, Pop rap, Avant-garde", "Album", "CD, Vinil, Cassete", 100, "KNWST1977");
+insert into Projetos values("YNGLNSTRNGR", "Stranger", "2017-11-10", "Hip-hop, Cloud rap", "Album", "CD, Vinil", 62, "YNGLN1996");
+insert into Projetos values("CHFKF4NM", "4Nem", "2021-12-17", "Hip-hop, Drill", "Album", "Vinil", 80, "CHFKF1995");
+insert into Projetos values("PLBCRTIWLR", "Whole Lotta Red", "2020-12-25", "Hip-hop alternativo, Trap", "Album", "Vinil", 83, "PLBCRT1996");
+insert into Projetos values("MDLBSHDSFBL", "Shades Of Blue", "2003-06-24", "Hip-hop, Jazz rap", "Album", "CD, Vinil", 86, "MDLB1972");
+insert into Projetos values("FTRDS2", "Dirty Sprite 2", "2015-07-17", "Hip-hop, Trap", "Album", "CD, Vinil", 84, "FTR1983");
+insert into Projetos values("FTRNVRLK", "I Never Liked You", "2022-04-29", "Hip-hop, Spoken word", "Album", "CD, Vinil", 60, "FTR1983");
+insert into Projetos(codigoProjeto, nome, dataLancamento, generos, tipo, formatos, codigoInterprete) values("ANTPNHVRGSTRSLGRS", "Outros Lugares", "1983-03-23", "Jazz contemporaneo", "Album", "CD, Vinil, Cassete", "ANTNPNHVRGS1951");
+
+
+
+---///---MUSICAS---///---
+insert into Musicas values("JHNCLTRNMFVRTTHNGS001", "My Favourite Things", "JHNCLTRNMFVRTTHNGS");
+insert into Musicas values("JHNCLTRNMFVRTTHNGS002", "Every Time We Say Goodbye", "JHNCLTRNMFVRTTHNGS");
+insert into Musicas values("JHNCLTRNMFVRTTHNGS003", "Summertime", "JHNCLTRNMFVRTTHNGS");
+insert into Musicas values("JHNCLTRNMFVRTTHNGS004", "But Not For Me", "JHNCLTRNMFVRTTHNGS");
+insert into Musicas values("BLDVRSNC001", "Who Goes There", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC002", "So What", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC003", "Lovenote", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC004", "Missing Person", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC005", "Romeo", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC006", "Xd Out", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC007", "Sick", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC008", "Rip", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC009", "Bloodveil/Stillborn", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC010", "Sugar", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC011", "Wrist Cry", "BLDVRSNC");
+insert into Musicas values("BLDVRSNC012", "Skin", "BLDVRSNC");
+insert into Musicas values("THCRPRNHGRPH001", "One Hundred Years", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH002", "A Short Term Effect", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH003", "The Hanging Garden",  "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH004", "Siamese Twins", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH005", "The Figurehead", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH006", "A Strange Day", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH007", "Cold", "THCRPRNHGRPH");
+insert into Musicas values("THCRPRNHGRPH008", "Pornography", "THCRPRNHGRPH");
+insert into Musicas values("MLSDVSBTCHSBRW001", "Pharaoh's Dance", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW002", "Bitches Brew", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW003", "Spanish Key", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW004", "John McLaughlin", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW005", "Miles Runs the Voodoo Down", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW006", "Sanctuary", "MLSDVSBTCHSBRW");
+insert into Musicas values("MLSDVSBTCHSBRW007", "Feio", "MLSDVSBTCHSBRW");
+insert into Musicas values("BHSNTHFLTFLD001", "Double Dare", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD002", "In The Flat Field", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD003", "A God In An Alcove", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD004", "Dive", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD005", "The Spy In The Cab", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD006", "Small Talk Stinks", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD007", "St. Vitus Dance", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD008", "Stigmata Martyr", "BHSNTHFLTFLD");
+insert into Musicas values("BHSNTHFLTFLD009", "Nerves", "BHSNTHFLTFLD");
+insert into Musicas values("BHSTHBLSSSN001", "Bela Lugosi's Dead", "BHSTHBLSSSN");
+insert into Musicas values("BHSTHBLSSSN002", "Some Faces", "BHSTHBLSSSN");
+insert into Musicas values("BHSTHBLSSSN003", "Bite My Hip", "BHSTHBLSSSN");
+insert into Musicas values("BHSTHBLSSSN004", "Harry", "BHSTHBLSSSN");
+insert into Musicas values("BHSTHBLSSSN005", "Boys", "BHSTHBLSSSN");
+insert into Musicas values("APHTWNCRBCD001", "Acrid Avid Jam Shred", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD002", "The Waxen pith", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD003", "Wax the nip.", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD004", "Icct Hedral (edit)", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD005", "VENTOLIN", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD006", "COME ON YOY SLAGS!", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD007", "Start as you mean to go on.", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD008", "Wet tip hen ax.", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD009", "mookid.", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD010", "Alberto Balsalm", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD011", "cow cud is a twin.", "APHTWNCRBCD");
+insert into Musicas values("APHTWNCRBCD012", "next heap with.", "APHTWNCRBCD");
+insert into Musicas values("THCLTCRMN001", "Ceremony", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN002", "Wild Hearted Son", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN003", "Earth Mofo", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN004", "White", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN005", "If", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN006", "Full Tilt", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN007", "Heart of Soul", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN008", "Bangkok Rain", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN009", "Indian", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN010", "Sweet Salvation", "THCLTCRMN");
+insert into Musicas values("THCLTCRMN011", "Wonderland",  "THCLTCRMN");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS001", "HooooooO", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS002", "Daylight", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS003", "Fleer Ultra", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS004", "Is It Love?", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS005", "For Love (I Come Your Friend)", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS006", "It Really Doens't Matter To You", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS007", "Jamboree", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS008", "Boat Cruise", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS009", "Seasons", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS010", "Goldenboy", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS011", "Walkin'", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS012", "Mystery Machine (The Golden Age Of Apocalypse)", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("THNDRCTTHEGLDNGFPCLPS013", "Return To The Journey", "THNDRCTTHEGLDNGFPCLPS");
+insert into Musicas values("YSCLSTTHDG001", "Close To The Edge", "YSCLSTTHDG");
+insert into Musicas values("YSCLSTTHDG002", "And You And I", "YSCLSTTHDG");
+insert into Musicas values("YSCLSTTHDG003", "Siberian Khatru", "YSCLSTTHDG");
+insert into Musicas values("TLRTHCRTRGR001", "IGOR'S THEME", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR002", "EARFQUAKE", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR003", "I THINK", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR004", "EXACTLY WHAT YOU RUN FROM YOU END UP CHASING", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR005", "RUNNING OUT OF TIME", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR006", "NEW MAGIC WAND", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR007", "A BOY IS A GUN*", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR008", "PUPPET", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR009", "WHAT'S GOOD", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR010", "GONE, GONE / THANK YOU", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR011", "I DON'T LOVE YOU ANYMORE", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRGR012", "ARE WE STILL FRIENDS?", "TLRTHCRTRGR");
+insert into Musicas values("TLRTHCRTRWLF001", "WOLF", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF002", "Jamba", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF003", "Cowboy", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF004", "Awkward", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF005", "Domo23", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF006", "Answer", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF007", "Slater", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF008", "48", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF009", "Colossus", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF010", "PartyIsntOver/Campfire/Bimmer", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF011", "IFHY", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF012", "Pigs", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF013", "Parking Lot", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF014", "Rusty", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF015", "Trashwang", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF016", "Treehome95", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF017", "Tamale", "TLRTHCRTRWLF");
+insert into Musicas values("TLRTHCRTRWLF018", "Lone", "TLRTHCRTRWLF");
+insert into Musicas values("MLSDVSKNDFBL001", "So What", "MLSDVSKNDFBL");
+insert into Musicas values("MLSDVSKNDFBL002", "Freddie Freeloader", "MLSDVSKNDFBL");
+insert into Musicas values("MLSDVSKNDFBL003", "Blue In Green", "MLSDVSKNDFBL");
+insert into Musicas values("MLSDVSKNDFBL004", "All Blues", "MLSDVSKNDFBL");
+insert into Musicas values("MLSDVSKNDFBL005", "Flamenco Sketches", "MLSDVSKNDFBL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL001", "Intro", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL002", "Lost Ones", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL003", "Ex-Factor", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL004", "To Zion", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL005", "Doo Wop (That Thing)", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL006", "Superstar", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL007", "Final Hour", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL008", "When It Hurts So Bad", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL009", "I Used To Love Him", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL010", "Forgive Them Father", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL011", "Every Ghetto, Every City", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL012", "Nothing Even Matters", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL013", "Everything Is Everything", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL014", "The Miseducation Of Lauryn Hill", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL015", "Can´t Take My Eyes Off Of You", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("LRNHLLTHMSDCTNFLRNHLL016", "Tell Him", "LRNHLLTHMSDCTNFLRNHLL");
+insert into Musicas values("FLTNGPNTSPRMSS001", "Movement 1", "FLTNGPNTSPRMSS");
+insert into Musicas values("FLTNGPNTSPRMSS002", "Movement 2", "FLTNGPNTSPRMSS");
+insert into Musicas values("FLTNGPNTSPRMSS003", "Movement 3", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS004", "Movement 4", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS005", "Movement 5", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS006", "Movement 6", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS007", "Movement 7", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS008", "Movement 8", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("FLTNGPNTSPRMSS009", "Movement 9", "FLTNGPNTSPRMSS"); 
+insert into Musicas values("ARTHRVRCARTHRVRC001", "Caboclo", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC002", "Pelas Sombras", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC003", "Sylvia", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC004", "Presente Grego", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC005", "Dedicada A Ela", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC006", "Seriado", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC007", "Na Boca Do Sol", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC008", "Velho Parente", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC009", "O Maapa", "ARTHRVRCARTHRVRC");
+insert into Musicas values("ARTHRVRCARTHRVRC010", "Karina (Domingo No Grajau", "ARTHRVRCARTHRVRC");
+insert into Musicas values("KNWSTTHCLLGDRPT001", "Intro", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT002", "We Don't Care", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT003", "Graduation Day", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT004", "All Falls Down", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT005", "I'll Fly Away", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT006", "Spaceship", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT007", "Jesus Walks", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT008", "Never Let Me Down", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT009", "Get Em High", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT010", "Workout Plan", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT011", "The New Workout Plan", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT012", "Slow Jamz", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT013", "Breathe In Breathe Out", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT014", "School Spirit (Skit 1)", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT015", "School Spirit", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT016", "School Spirit (Skit 2)", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT017", "Lil Jimmy (Skit)", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT018", "Two Words", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT019", "Through The Wire", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT020", "Family Business", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT021", "Last Call", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTTHCLLGDRPT022", "Heavy Hitters", "KNWSTTHCLLGDRPT");
+insert into Musicas values("KNWSTMBDTF001", "Dark Fantasy", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF002", "Gorgeous", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF003", "POWER", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF004", "All Of The Lights (Interlude)", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF005", "All Of The Lights", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF006", "Monster", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF007", "So Appalled", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF008", "Devil In A New Dress", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF090", "Runaway", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF010", "Hell Of A  Life", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF011", "Blame Game", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF012", "Lost In The World", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF013", "Who Will Survive In America", "KNWSTMBDTF");
+insert into Musicas values("KNWSTMBDTF014", "See Me Now", "KNWSTMBDTF");
+insert into Musicas values("YNGLNSTRNGR001", "Muddy Sea", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR002", "Red Bottom Sky", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR003", "Skimask", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR004", "Silver Arrows", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR005", "Metallic Intuiton", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR006", "Push / Lost Weekend", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR007", "Salute / Pacman", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR008", "Drop It / Scooter", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR009", "Hunting My Own Skin", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR010", "Iceman", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR011", "Snakesin / Bullets", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR012", "Fallen Demons", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR013", "Agony", "YNGLNSTRNGR");
+insert into Musicas values("YNGLNSTRNGR014", "Yellowman", "YNGLNSTRNGR");
+insert into Musicas values("CHFKF4NM001", "Bitch Where", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM002", "Tuxedo", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM003", "See Through", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM004", "Say I Ain't Pick Yo Weak Ass Up", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM005", "Like It's Yo Job", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM006", "Ice Cream Man", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM007", "Wazzup", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM008", "The Talk", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM009", "Shady", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM010", "Yes Sir", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM011", "I Don´t Think They Love Me", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM012", "Hurry B4 The Gate Close", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM013", "Hadouken", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM014", "On What", "CHFKF4NM");
+insert into Musicas values("CHFKF4NM015", "Picking Big Sean Up", "CHFKF4NM");
+insert into Musicas values("PLBCRTIWLR001", "Rockstar Made", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR002", "Go2DaMoon", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR003", "Stop Breathing", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR004", "Beno!", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR005", "JumpOutTheHouse", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR006", "M3tamorphosis", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR007", "Slay3r", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR008", "No Sl33p", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR009", "New Tank", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR010", "Teen X", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR011", "Meh", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR012", "Vamp Anthem", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR013", "New N3on", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR014", "Control", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR015", "Punk Monk", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR016", "On That Time", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR017", "King Vamp", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR018", "Place", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR019", "Sky", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR020", "Over", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR021", "ILoveUIHateU", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR022", "Die4Guy", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR023", "Not Playing", "PLBCRTIWLR");
+insert into Musicas values("PLBCRTIWLR024", "F33l Lik3 Dyin", "PLBCRTIWLR");
+insert into Musicas values("MDLBSHDSFBL001", "Introduction", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL002", "Slim's Return", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL003", "Distant Land", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL004", "Mystic Bounce", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL005", "Stormy by Morgan Adams Quartet Plus Two", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL006", "Blue Note Interlude", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL007", "Please Set Me At Ease", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL008", "Funky Blue Note By Morgan Adams Quartet Plus Two", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL009", "Alfred Lion Interlude", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL010", "Stepping Into Tomorrow", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL011", "Andrew Hill Break", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL012", "Montara", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL013", "Song For My Father By Sound Directions", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL014", "Footprints by Yesterdays New Quintet", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL015", "Peace / Dolphin Dance by Joe McDuphrey Experience", "MDLBSHDSFBL");
+insert into Musicas values("MDLBSHDSFBL016", "Outro", "MDLBSHDSFBL");
+insert into Musicas values("FTRDS2001", "Thought It Was A Drought", "FTRDS2");
+insert into Musicas values("FTRDS2002", "I Serve The Base", "FTRDS2");
+insert into Musicas values("FTRDS2003", "Where Ya At", "FTRDS2");
+insert into Musicas values("FTRDS2004", "Groupies", "FTRDS2");
+insert into Musicas values("FTRDS2005", "Lil One", "FTRDS2");
+insert into Musicas values("FTRDS2006", "Stick Talk", "FTRDS2");
+insert into Musicas values("FTRDS2007", "Freak Hoe", "FTRDS2");
+insert into Musicas values("FTRDS2008", "Rotation", "FTRDS2");
+insert into Musicas values("FTRDS2009", "Slave Master", "FTRDS2");
+insert into Musicas values("FTRDS2010", "Blow a Bag", "FTRDS2");
+insert into Musicas values("FTRDS2011", "Colossal", "FTRDS2");
+insert into Musicas values("FTRDS2012", "Rich Sex", "FTRDS2");
+insert into Musicas values("FTRDS2013", "Blood On The Money", "FTRDS2");
+insert into Musicas values("FTRNVRLK001", "712PM", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK002", "I'M DAT NIGGA", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK003", "KEEP IT BURNIN", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK004", "FOR A NUT", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK005", "PUFFIN ON ZOOTIEZ", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK006", "GOLD STACKS", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK007", "WAIT FOR U", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK008", "LOVE YOU BETTER", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK009", "MASSAGING ME", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK010", "CHICKENS", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK011", "WE JUS WANNA GET HIGH", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK012", "VOODOO", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK013", "HOLY GHOST", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK014", "THE WAY THINGS GOING", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK015", "I'M ON ONE", "FTRNVRLK");
+insert into Musicas values("FTRNVRLK016", "BACK TO THE BASICS", "FTRNVRLK");
+insert into Musicas values("ANTPNHVRGSTRSLGRS001", "Jardim Do Passeio Alegre", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS002", "Uma Já Antiga", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS003", "Sonho Do Peixe", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS004", "Incoerencias e Contra-Sensos", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS005", "Dinky Toys", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS006", "Alentejo, Alentejo", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS007", "Mister R. K.", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS008", "Quedas D'Agua", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS010", "Risos", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS009", "Pas Mal", "ANTPNHVRGSTRSLGRS");
+insert into Musicas values("ANTPNHVRGSTRSLGRS011", "Cantiga Para Amigos", "ANTPNHVRGSTRSLGRS");
+
+
+
+---///---FEZ---///---
+insert into Fez values("JHNCLTRNMFVRTTHNGS001", "JHNCLTRN1926");
+insert into Fez values("JHNCLTRNMFVRTTHNGS002", "JHNCLTRN1926");
+insert into Fez values("JHNCLTRNMFVRTTHNGS003", "JHNCLTRN1926");
+insert into Fez values("JHNCLTRNMFVRTTHNGS004", "JHNCLTRN1926");
+insert into Fez values("BLDVRSNC001", "BLD1994");
+insert into Fez values("BLDVRSNC002", "BLD1994");
+insert into Fez values("BLDVRSNC003", "BLD1994");
+insert into Fez values("BLDVRSNC004", "BLD1994");
+insert into Fez values("BLDVRSNC005", "BLD1994");
+insert into Fez values("BLDVRSNC006", "BLD1994");
+insert into Fez values("BLDVRSNC007", "BLD1994");
+insert into Fez values("BLDVRSNC008", "BLD1994");
+insert into Fez values("BLDVRSNC009", "BLD1994");
+insert into Fez values("BLDVRSNC010", "BLD1994");
+insert into Fez values("BLDVRSNC011", "BLD1994");
+insert into Fez values("BLDVRSNC012", "BLD1994");
+insert into Fez values("THCRPRNHGRPH001", "THCR1976");
+insert into Fez values("THCRPRNHGRPH002", "THCR1976");
+insert into Fez values("THCRPRNHGRPH003", "THCR1976");
+insert into Fez values("THCRPRNHGRPH004", "THCR1976");
+insert into Fez values("THCRPRNHGRPH005", "THCR1976");
+insert into Fez values("THCRPRNHGRPH006", "THCR1976");
+insert into Fez values("THCRPRNHGRPH007", "THCR1976");
+insert into Fez values("THCRPRNHGRPH008", "THCR1976");
+insert into Fez values("MLSDVSBTCHSBRW001", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW002", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW003", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW004", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW005", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW006", "MLSDVS1926");
+insert into Fez values("MLSDVSBTCHSBRW007", "MLSDVS1926");
+insert into Fez values("BHSNTHFLTFLD001", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD002", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD003", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD004", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD005", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD006", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD007", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD008", "BHS1978");
+insert into Fez values("BHSNTHFLTFLD009", "BHS1978");
+insert into Fez values("BHSTHBLSSSN001", "BHS1978");
+insert into Fez values("BHSTHBLSSSN002", "BHS1978");
+insert into Fez values("BHSTHBLSSSN003", "BHS1978");
+insert into Fez values("BHSTHBLSSSN004", "BHS1978");
+insert into Fez values("BHSTHBLSSSN005", "BHS1978");
+insert into Fez values("APHTWNCRBCD001", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD002", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD003", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD004", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD005", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD006", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD007", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD008", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD009", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD010", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD011", "APHXTWN1971");
+insert into Fez values("APHTWNCRBCD012", "APHXTWN1971");
+insert into Fez values("THCLTCRMN001", "THCLT1983");
+insert into Fez values("THCLTCRMN002", "THCLT1983");
+insert into Fez values("THCLTCRMN003", "THCLT1983");
+insert into Fez values("THCLTCRMN004", "THCLT1983");
+insert into Fez values("THCLTCRMN005", "THCLT1983");
+insert into Fez values("THCLTCRMN006", "THCLT1983");
+insert into Fez values("THCLTCRMN007", "THCLT1983");
+insert into Fez values("THCLTCRMN008", "THCLT1983");
+insert into Fez values("THCLTCRMN009", "THCLT1983");
+insert into Fez values("THCLTCRMN010", "THCLT1983");
+insert into Fez values("THCLTCRMN011", "THCLT1983");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS001", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS002", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS003", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS004", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS005", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS006", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS007", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS008", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS009", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS010", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS011", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS012", "THNDRCT1984");
+insert into Fez values("THNDRCTTHEGLDNGFPCLPS013", "THNDRCT1984");
+insert into Fez values("YSCLSTTHDG001", "YS1968");
+insert into Fez values("YSCLSTTHDG002", "YS1968");
+insert into Fez values("YSCLSTTHDG003", "YS1968");
+insert into Fez values("TLRTHCRTRGR001", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR002", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR003", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR004", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR005", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR006", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR007", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR008", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR009", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR010", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR011", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRGR012", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF001", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF002", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF003", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF004", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF005", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF006", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF007", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF008", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF009", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF010", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF011", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF012", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF013", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF014", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF015", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF016", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF017", "TLRTHCRTR1991");
+insert into Fez values("TLRTHCRTRWLF018", "TLRTHCRTR1991");
+insert into Fez values("MLSDVSKNDFBL001", "MLSDVS1926");
+insert into Fez values("MLSDVSKNDFBL002", "MLSDVS1926");
+insert into Fez values("MLSDVSKNDFBL003", "MLSDVS1926");
+insert into Fez values("MLSDVSKNDFBL004", "MLSDVS1926");
+insert into Fez values("MLSDVSKNDFBL005", "MLSDVS1926");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL001", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL002", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL003", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL004", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL005", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL006", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL007", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL008", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL009", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL010", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL011", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL012", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL013", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL014", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL015", "LRNHLL1975");
+insert into Fez values("LRNHLLTHMSDCTNFLRNHLL016", "LRNHLL1975");
+insert into Fez values("FLTNGPNTSPRMSS001", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS002", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS003", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS004", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS005", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS006", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS007", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS008", "FLTNGPNTS2008");
+insert into Fez values("FLTNGPNTSPRMSS009", "FLTNGPNTS2008");
+insert into Fez values("ARTHRVRCARTHRVRC001", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC002", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC003", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC004", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC005", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC006", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC007", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC008", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC009", "ARTHRVRC1945");
+insert into Fez values("ARTHRVRCARTHRVRC010", "ARTHRVRC1945");
+insert into Fez values("KNWSTTHCLLGDRPT001", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT002", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT003", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT004", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT005", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT006", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT007", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT008", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT009", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT010", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT011", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT012", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT013", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT014", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT015", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT016", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT017", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT018", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT019", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT020", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT021", "KNWST1977");
+insert into Fez values("KNWSTTHCLLGDRPT022", "KNWST1977");
+insert into Fez values("KNWSTMBDTF001", "KNWST1977");
+insert into Fez values("KNWSTMBDTF002", "KNWST1977");
+insert into Fez values("KNWSTMBDTF003", "KNWST1977");
+insert into Fez values("KNWSTMBDTF004", "KNWST1977");
+insert into Fez values("KNWSTMBDTF005", "KNWST1977");
+insert into Fez values("KNWSTMBDTF006", "KNWST1977");
+insert into Fez values("KNWSTMBDTF007", "KNWST1977");
+insert into Fez values("KNWSTMBDTF008", "KNWST1977");
+insert into Fez values("KNWSTMBDTF090", "KNWST1977");
+insert into Fez values("KNWSTMBDTF010", "KNWST1977");
+insert into Fez values("KNWSTMBDTF011", "KNWST1977");
+insert into Fez values("KNWSTMBDTF012", "KNWST1977");
+insert into Fez values("KNWSTMBDTF013", "KNWST1977");
+insert into Fez values("KNWSTMBDTF014", "KNWST1977");
+insert into Fez values("YNGLNSTRNGR001", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR002", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR003", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR004", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR005", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR006", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR007", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR008", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR009", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR010", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR011", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR012", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR013", "YNGLN1996");
+insert into Fez values("YNGLNSTRNGR014", "YNGLN1996");
+insert into Fez values("CHFKF4NM001", "CHFKF1995");
+insert into Fez values("CHFKF4NM002", "CHFKF1995");
+insert into Fez values("CHFKF4NM003", "CHFKF1995");
+insert into Fez values("CHFKF4NM004", "CHFKF1995");
+insert into Fez values("CHFKF4NM005", "CHFKF1995");
+insert into Fez values("CHFKF4NM006", "CHFKF1995");
+insert into Fez values("CHFKF4NM007", "CHFKF1995");
+insert into Fez values("CHFKF4NM008", "CHFKF1995");
+insert into Fez values("CHFKF4NM009", "CHFKF1995");
+insert into Fez values("CHFKF4NM010", "CHFKF1995");
+insert into Fez values("CHFKF4NM011", "CHFKF1995");
+insert into Fez values("CHFKF4NM012", "CHFKF1995");
+insert into Fez values("CHFKF4NM013", "CHFKF1995");
+insert into Fez values("CHFKF4NM014", "CHFKF1995");
+insert into Fez values("CHFKF4NM015", "CHFKF1995");
+insert into Fez values("PLBCRTIWLR001", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR002", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR003", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR004", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR005", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR006", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR007", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR008", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR009", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR010", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR011", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR012", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR013", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR014", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR015", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR016", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR017", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR018", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR019", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR020", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR021", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR022", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR023", "PLBCRT1996");
+insert into Fez values("PLBCRTIWLR024", "PLBCRT1996");
+insert into Fez values("MDLBSHDSFBL001", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL002", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL003", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL004", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL005", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL006", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL007", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL008", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL009", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL010", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL011", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL012", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL013", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL014", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL015", "MDLB1972");
+insert into Fez values("MDLBSHDSFBL016", "MDLB1972");
+insert into Fez values("FTRDS2001", "FTR1983");
+insert into Fez values("FTRDS2002", "FTR1983");
+insert into Fez values("FTRDS2003", "FTR1983");
+insert into Fez values("FTRDS2004", "FTR1983");
+insert into Fez values("FTRDS2005", "FTR1983");
+insert into Fez values("FTRDS2006", "FTR1983");
+insert into Fez values("FTRDS2007", "FTR1983");
+insert into Fez values("FTRDS2008", "FTR1983");
+insert into Fez values("FTRDS2009", "FTR1983");
+insert into Fez values("FTRDS2010", "FTR1983");
+insert into Fez values("FTRDS2011", "FTR1983");
+insert into Fez values("FTRDS2012", "FTR1983");
+insert into Fez values("FTRDS2013", "FTR1983");
+insert into Fez values("FTRNVRLK001", "FTR1983");
+insert into Fez values("FTRNVRLK002", "FTR1983");
+insert into Fez values("FTRNVRLK003", "FTR1983");
+insert into Fez values("FTRNVRLK004", "FTR1983");
+insert into Fez values("FTRNVRLK005", "FTR1983");
+insert into Fez values("FTRNVRLK006", "FTR1983");
+insert into Fez values("FTRNVRLK007", "FTR1983");
+insert into Fez values("FTRNVRLK008", "FTR1983");
+insert into Fez values("FTRNVRLK009", "FTR1983");
+insert into Fez values("FTRNVRLK010", "FTR1983");
+insert into Fez values("FTRNVRLK011", "FTR1983");
+insert into Fez values("FTRNVRLK012", "FTR1983");
+insert into Fez values("FTRNVRLK013", "FTR1983");
+insert into Fez values("FTRNVRLK014", "FTR1983");
+insert into Fez values("FTRNVRLK015", "FTR1983");
+insert into Fez values("FTRNVRLK016", "FTR1983");
+insert into Fez values("ANTPNHVRGSTRSLGRS001", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS002", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS003", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS004", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS005", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS006", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS007", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS008", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS010", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS009", "ANTNPNHVRGS1951");
+insert into Fez values("ANTPNHVRGSTRSLGRS011", "ANTNPNHVRGS1951");
+
+
+
+
+---///---POSSUI---///---
+insert into Possui values(449010920, "JHNCLTRNMFVRTTHNGS", "2023-12-01");
+insert into Possui values(449010920, "BLDVRSNC", "2023-11-01");
+insert into Possui values(449010920, "THCRPRNHGRPH", "2023-11-25");
+insert into Possui values(449010920, "MLSDVSBTCHSBRW", "2023-11-10");
+insert into Possui values(449010920, "BHSTHBLSSSN", "2023-11-25");
+insert into Possui values(449010920, "BHSNTHFLTFLD", "2023-11-25");
+insert into Possui values(449010920, "APHTWNCRBCD", "2023-12-15");
+insert into Possui values(449010920, "THCLTCRMN", "2023-11-01");
+insert into Possui values(449069520, "THNDRCTTHEGLDNGFPCLPS", "2023-01-01");
+insert into Possui values(449069520, "YSCLSTTHDG", "2023-05-05");
+insert into Possui values(449069520, "TLRTHCRTRGR", "2023-11-12");
+insert into Possui values(449069520, "TLRTHCRTRWLF", "2023-10-30");
+insert into Possui values(449069520, "MLSDVSKNDFBL", "2023-06-11");
+insert into Possui values(449069520, "MLSDVSBTCHSBRW", "2023-03-10");
+insert into Possui values(449069520, "JHNCLTRNMFVRTTHNGS", "2023-10-12");
+insert into Possui values(449069520, "LRNHLLTHMSDCTNFLRNHLL", "2023-04-03");
+insert into Possui values(449069520, "FLTNGPNTSPRMSS", "2023-09-24");
+insert into Possui values(449069520, "ARTHRVRCARTHRVRC", "2023-02-09");
+insert into Possui values(443099920, "KNWSTTHCLLGDRPT", "2022-05-20");
+insert into Possui values(443099920, "KNWSTMBDTF", "2022-06-30");
+insert into Possui values(443099920, "YNGLNSTRNGR", "2023-05-10");
+insert into Possui values(443099920, "CHFKF4NM", "2022-10-10");
+insert into Possui values(443099920, "PLBCRTIWLR", "2022-12-25");
+insert into Possui values(443099920, "MDLBSHDSFBL", "2023-11-01");
+insert into Possui values(443099920, "LRNHLLTHMSDCTNFLRNHLL", "2023-02-03");
+insert into Possui values(443099920, "FTRDS2", "2022-11-15");
+insert into Possui values(443099920, "FTRNVRLK", "2023-03-11");
+insert into Possui values(443099920, "ANTPNHVRGSTRSLGRS", "2023-10-10");
+
+
