@@ -2,13 +2,13 @@
 
 This project was done for a second year curricular unit (Bases de Dados).
 
-Using Python, I implemented a series of search algorithms to better solve the 15 puzzle!
-Further rules about the game can be read here: https://en.wikipedia.org/wiki/15_puzzle
+I first created a UML universe, along with its diagram and the respective relational model diagram.<br>
+This universe is made of the following classes/relations:
+- Colecionador
+- Possui
+- Projeto
+- Interprete
+- Musica
 
-The search algorithms implemented were:
-
-IDFS
-BFS
-DFS
-GREEDY
-A*
+Using SQLite I created a database that holds all these classes and relations, and then populated it!<br>
+I then developed a Flask application that allows for the visualization of all this information.
